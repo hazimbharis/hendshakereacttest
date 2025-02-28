@@ -34,6 +34,11 @@ export default function TodoList() {
     <div className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md">
       <h1 className="text-2xl font-bold mb-4">To-Do List</h1>
 
+      {/* 🏆 Total Items Count */}
+      <div className="text-lg font-semibold text-gray-700 text-center">
+        Total Activities: <span className="text-blue-600">{todos.length}</span>
+      </div>  
+
       {/* Form */}
       <div className="space-y-3">
         <input
