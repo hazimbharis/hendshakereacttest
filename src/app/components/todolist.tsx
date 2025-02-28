@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 type Todo = {
   activity: string;
@@ -34,16 +34,25 @@ export default function TodoList() {
   }, [todos]);
 
   // Function called when submitting a task from the form, adding it to the list
-  const addTodo = () => {
-    if (!formData.activity.trim()) return;
-    setTodos([...todos, formData]);
+  const addTodo = useCallback(() => {
+    setTodos((prevTodos) => {
+      const updatedTodos = [...prevTodos, formData];
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      return updatedTodos;
+    });
+  
     setFormData({ activity: "", price: 0, type: "Education", bookingRequired: false, accessibility: 0.5 });
-  };
+  }, [formData]);
+  
 
   // Function called when clicking the delete button to remove tasks from the list
-  const removeTodo = (index: number) => {
-    setTodos(todos.filter((_, i) => i !== index));
-  };
+  const removeTodo = useCallback((index: number) => {
+    setTodos((prevTodos) => {
+      const updatedTodos = prevTodos.filter((_, i) => i !== index);
+      localStorage.setItem("todos", JSON.stringify(updatedTodos));
+      return updatedTodos;
+    });
+  }, []);
 
   return (
     <div className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md">
