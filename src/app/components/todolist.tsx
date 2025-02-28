@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 type Todo = {
   activity: string;
@@ -19,6 +19,19 @@ export default function TodoList() {
     bookingRequired: false,
     accessibility: 0.5,
   });
+
+  // Load tasks from localStorage when the page loads
+  useEffect(() => {
+    const savedTodos = localStorage.getItem("todos");
+    if (savedTodos) {
+      setTodos(JSON.parse(savedTodos));
+    }
+  }, []);
+
+  // Save tasks to localStorage whenever `todos` changes
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
 
   const addTodo = () => {
     if (!formData.activity.trim()) return;
