@@ -15,7 +15,7 @@ export default function TodoList() {
   const [formData, setFormData] = useState<Todo>({
     activity: "",
     price: 0,
-    type: "education",
+    type: "Education",
     bookingRequired: false,
     accessibility: 0.5,
   });
@@ -33,12 +33,14 @@ export default function TodoList() {
     localStorage.setItem("todos", JSON.stringify(todos));
   }, [todos]);
 
+  // Function called when submitting a task from the form, adding it to the list
   const addTodo = () => {
     if (!formData.activity.trim()) return;
     setTodos([...todos, formData]);
-    setFormData({ activity: "", price: 0, type: "education", bookingRequired: false, accessibility: 0.5 });
+    setFormData({ activity: "", price: 0, type: "Education", bookingRequired: false, accessibility: 0.5 });
   };
 
+  // Function called when clicking the delete button to remove tasks from the list
   const removeTodo = (index: number) => {
     setTodos(todos.filter((_, i) => i !== index));
   };
@@ -47,7 +49,7 @@ export default function TodoList() {
     <div className="max-w-lg mx-auto p-6 bg-white rounded-xl shadow-md">
       <h1 className="text-2xl font-bold mb-4">To-Do List</h1>
 
-      {/* 🏆 Total Items Count */}
+      {/* Total Items Count */}
       <div className="text-lg font-semibold text-gray-700 text-center">
         Total Activities: <span className="text-blue-600">{todos.length}</span>
       </div>  
@@ -59,7 +61,7 @@ export default function TodoList() {
           value={formData.activity}
           onChange={(e) => setFormData({ ...formData, activity: e.target.value })}
           className="w-full border p-2 rounded"
-          placeholder="Activity name"
+          placeholder="Enter your activity..."
         />
 
         <input
@@ -75,7 +77,7 @@ export default function TodoList() {
           onChange={(e) => setFormData({ ...formData, type: e.target.value })}
           className="w-full border p-2 rounded"
         >
-          {["education", "recreational", "social", "diy", "charity", "cooking", "relaxation", "music", "busywork"].map((option) => (
+          {["Education", "Recreational", "Social", "DIY", "Charity", "Cooking", "Relaxation", "Music", "Busywork"].map((option) => (
             <option key={option} value={option}>{option}</option>
           ))}
         </select>
